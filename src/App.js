@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import noteService from "./services/notes";
 import axios from "axios";
 
+/* Can't change importance yet... */
+
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
@@ -12,8 +14,8 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/notes").then((res) => {
-      setNotes(res.data);
+    noteService.getAll().then((initialNotes) => {
+      setNotes(initialNotes);
     });
   }, []);
 
