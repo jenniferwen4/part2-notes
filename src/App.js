@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Note from "./components/Note";
 import Notification from "./components/Notification";
 import Footer from "./components/Footer";
-import loginForm from "./components/loginForm";
+import LoginForm from "./components/LoginForm";
 
 import noteService from "./services/notes";
 import loginService from "./services/login";
@@ -103,11 +103,9 @@ const App = () => {
     </form>
   );
 
-  return (
-    <div>
-      <h1>Notes</h1>
-      <Notification message={errorMessage} />
-      {user === null ? (
+  /*
+  
+  {user === null ? (
         loginForm()
       ) : (
         <div>
@@ -115,6 +113,21 @@ const App = () => {
           {noteForm()}
         </div>
       )}
+
+
+  */
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <Notification message={errorMessage} />
+      <LoginForm
+        username={username}
+        password={password}
+        handleUsernameChange={({ target }) => setUsername(target.value)}
+        handlePasswordChange={({ target }) => setPassword(target.value)}
+        handleSubmit={handleLogin}
+      />
 
       <div>
         <button onClick={() => setShowAll(!showAll)}>
