@@ -16,6 +16,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [loginVisible, setLoginVisible] = useState(false);
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
@@ -102,20 +103,6 @@ const App = () => {
       <button type="submit">save</button>
     </form>
   );
-
-  /*
-  
-  {user === null ? (
-        loginForm()
-      ) : (
-        <div>
-          <p>{user.name} logged-in</p>
-          {noteForm()}
-        </div>
-      )}
-
-
-  */
 
   return (
     <div>
