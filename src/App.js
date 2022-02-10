@@ -18,7 +18,8 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  const noteFormRef = useRef();
+  /* same reference is kept throughout re-renders */
+  const noteFormRef = useRef(); // reference to component
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
@@ -37,6 +38,9 @@ const App = () => {
   }, []);
 
   const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility();
+    /*returns a mutable ref object whose .current property 
+    is initialized to the passed argument (initialValue)*/
     noteService.create(noteObject).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
     });
