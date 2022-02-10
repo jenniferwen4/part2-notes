@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Note from "./components/Note";
 import Notification from "./components/Notification";
 import Footer from "./components/Footer";
@@ -11,14 +11,14 @@ import loginService from "./services/login";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [loginVisible, setLoginVisible] = useState(false);
+
+  const noteFormRef = useRef();
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
@@ -36,18 +36,9 @@ const App = () => {
     }
   }, []);
 
-  const addNote = (event) => {
-    event.preventDefault();
-
-    const noteObject = {
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() > 0.5,
-    };
-
+  const addNote = (noteObject) => {
     noteService.create(noteObject).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
-      setNewNote("");
     });
   };
 
@@ -68,10 +59,6 @@ const App = () => {
           setErrorMessage(null);
         }, 5000);
       });
-  };
-
-  const handleNoteChange = (event) => {
-    setNewNote(event.target.value);
   };
 
   const notesToShow = showAll ? notes : notes.filter((note) => note.important);
@@ -113,11 +100,7 @@ const App = () => {
 
   const noteForm = () => (
     <Togglable buttonLabel="new note">
-      <NoteForm
-        onSubmit={addNote}
-        value={newNote}
-        handleChange={handleNoteChange}
-      />
+      <NoteForm createNote={addNote} />
     </Togglable>
   );
 
