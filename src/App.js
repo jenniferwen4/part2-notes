@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+/* implement closing the form from the parent component */
 import Note from "./components/Note";
 import Notification from "./components/Notification";
 import Footer from "./components/Footer";
