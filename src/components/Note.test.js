@@ -28,6 +28,7 @@ test("clicking the button calls event handler once", async () => {
     content: "Component testing is done with react-testing-library",
     important: true,
   };
+
   const mockHandler = jest.fn(); //mock function defined by jest
 
   render(<Note note={note} toggleImportance={mockHandler}></Note>);
@@ -35,5 +36,6 @@ test("clicking the button calls event handler once", async () => {
   const button = screen.getByText("make not important");
   userEvent.click(button);
 
+  /* The test verifies that the mock function has been called once */
   expect(mockHandler.mock.calls).toHaveLength(1);
 });
