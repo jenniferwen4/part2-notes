@@ -26,6 +26,8 @@ describe("<Togglable />", () => {
 
   test("after clicking the button, children are displayed", () => {
     const button = screen.getByText("show...");
+    screen.debug(button);
+
     userEvent.click(button);
 
     const div = container.querySelector(".togglableContent");
