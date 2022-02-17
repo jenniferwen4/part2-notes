@@ -1,5 +1,12 @@
 describe("Note app", function () {
   beforeEach(function () {
+    cy.request("POST", "http://localhost:3001/api/testing/reset");
+    const user = {
+      name: "name",
+      username: "booty",
+      password: "open",
+    };
+    cy.request("POST", "http://localhost:3001/api/users/", user);
     cy.visit("http://localhost:3000");
   });
 
@@ -38,3 +45,6 @@ describe("Note app", function () {
     });
   });
 });
+
+// something wrong with back end
+// not 'getting' notes
